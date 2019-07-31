@@ -1,0 +1,535 @@
+swagger: '2.0'
+info:
+  description: SNOPY
+  version: 1.0.0
+  title: SNOPY
+host: ec2-user@ec2-54-255-194-228.ap-southeast-1.compute.amazonaws.com:9000
+basePath: /api
+schemes:
+ - https
+ - http
+paths:
+  /findCategory/brand:
+    get:
+      summary: >-
+        findCategory/brand?page={jumlah halaman}&size={ukuran data}&sort={sort
+        data by}&search=9f65e934-0e58-11e8-ba89-0ed5f89f718c
+      description: api untuk mencari kategori
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: page
+          in: query
+          description: jumlah halaman
+          required: true
+          type: string
+        - name: size
+          in: query
+          description: ukuran data
+          required: true
+          type: integer
+          format: int32
+        - name: sort
+          in: query
+          description: sort data by
+          type: string
+        - name: search
+          in: query
+          type: string
+          format: uuid
+          description: user id
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/category'
+  /brand:
+    get:
+      summary: >-
+        /brand?page={jumlah halaman}&size={ukuran data}&sort={sort data
+        by}&search={brandName}
+      description: api get brand
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/brand'
+      parameters:
+        - name: page
+          in: query
+          description: jumlah halaman
+          required: true
+          type: string
+        - name: size
+          in: query
+          description: ukuran data
+          required: true
+          type: integer
+          format: int32
+        - name: sort
+          in: query
+          description: sort data by
+          type: string
+        - name: search
+          in: query
+          type: string
+          description: brandName
+  /brand/{brandId}:
+    get:
+      summary: '/brand/{brandId}'
+      description: api get brandId
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/brandid'
+      parameters:
+        - name: brandId
+          in: path
+          format: uuid
+          description: id of brand
+          required: true
+          type: string
+  /category/{categoryId}:
+    get:
+      summary: '/category/{categoryId}'
+      description: find category by category Id
+      consumes:
+        - application/json
+      produces:
+        - appliation/json
+      parameters:
+        - name: categoryId
+          in: path
+          description: id of category
+          format: uuid
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/categoryid'
+  /category:
+    get:
+      summary: >-
+        /category?page={jumlah page}&size={ukuran data}&sort={sort data
+        by}&search={category name}
+      description: find category by category Id
+      consumes:
+        - application/json
+      produces:
+        - appliation/json
+      parameters:
+        - name: page
+          in: query
+          description: jumlah halaman
+          required: true
+          type: string
+        - name: size
+          in: query
+          description: ukuran
+          format: int32
+          required: true
+          type: string
+        - name: sort
+          in: query
+          description: mngeurutkan halaman
+          required: true
+          type: string
+        - name: search
+          in: query
+          description: mencari halaman
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/categorys'
+  /product/{productId}:
+    get:
+      summary: '/product/{productId}'
+      description: find produc by produc Id
+      consumes:
+        - application/json
+      produces:
+        - appliation/json
+      parameters:
+        - name: productId
+          in: path
+          description: id of product
+          format: uuid
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/productid'
+  /project:
+    get:
+      summary: >-
+        product?page={jumlah halama}&size={ukuran data}&sort={sort data
+        by}&search={brandName}
+      description: projek
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: page
+          in: query
+          description: jumlah halaman
+          required: true
+          type: string
+        - name: size
+          in: query
+          description: ukuran data
+          required: true
+          type: string
+        - name: sort
+          in: query
+          description: sort by data
+          type: string
+        - name: search
+          in: query
+          description: brandName
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/product'
+  /category/product:
+    get:
+      summary: >-
+        category/product?page={jumlah halaman}&size={ukuran data}&sort={sort
+        data by}&search={id}
+      description: kategori
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: page
+          in: query
+          description: jumlah halaman
+          required: true
+          type: string
+        - name: size
+          in: query
+          description: ukuran data
+          required: true
+          type: string
+        - name: sort
+          in: query
+          description: sort by data
+          type: string
+        - name: search
+          in: query
+          description: id
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/category'
+  /brand/product:
+    get:
+      summary: >-
+        brand/product?page={jumlah halaman}&size={ukuran data}&sort={sort data
+        by}&search={id}
+      description: brand
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: page
+          in: query
+          description: jumlah halaman
+          required: true
+          type: string
+        - name: size
+          in: query
+          description: ukuran data
+          required: true
+          type: string
+        - name: sort
+          in: query
+          description: sort by data
+          type: string
+        - name: search
+          in: query
+          description: id
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/brand'
+definitions:
+  category:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        type: string
+        example: []
+      meta:
+        properties:
+          page:
+            type: integer
+            example: 1
+          count:
+            type: integer
+            example: 0
+          totalPage:
+            type: integer
+            example: 0
+          totalData:
+            type: integer
+            example: 0
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: Brand has been proccessed
+  brandid:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        properties:
+          id:
+            type: string
+            example: 5a731369e3a34ab6b60739dc
+          brandId:
+            type: string
+            example: BRN0001
+          brandNama:
+            type: string
+            example: Logitech
+          brandImages:
+            type: string
+            example: 'https://s3-ap-southeast-1.amazonaws.com/snopy/product/gambar+1.jpg'
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: Brand has been proccessed
+  categoryid:
+    type: object
+    properties:
+      status:
+        type: string
+        example: succes
+      data:
+        properties:
+          id:
+            type: string
+            example: 5a731369e3a34ab6b60737da
+          categoryId:
+            type: string
+            example: CAT0001
+          categoryName:
+            type: string
+            example: computer
+          categoryImages:
+            type: string
+            example: 'https://s3-ap-southeast-1.amazonaws.com/snopy/product/gambar+1.jpg'
+      code:
+        type: integer
+        example: 200
+      massage:
+        type: string
+        example: Category has been processed
+  categorys:
+    type: object
+    properties:
+      status:
+        type: string
+        example: succes
+      data:
+        properties:
+          id:
+            type: string
+            example: 5a731369e3a34ab6b60737da
+          categoryId:
+            type: string
+            example: CAT0001
+          categoryName:
+            type: string
+            example: computer
+          categoryImages:
+            type: string
+            example: 'https://s3-ap-southeast-1.amazonaws.com/snopy/product/gambar+1.jpg'
+      meta:
+        properties:
+          page:
+            type: integer
+            example: 1
+          count:
+            type: integer
+            example: 1
+          totalPage:
+            type: integer
+            example: 1
+          totalData:
+            type: integer
+            example: 1
+      code:
+        type: integer
+        example: 200
+      massage:
+        type: string
+        example: Category has been processed
+  productid:
+    type: object
+    properties:
+      status:
+        type: string
+        example: succes
+      data:
+        properties:
+          id:
+            type: string
+            example: 5a83e01bc00ec80efe0dd5bf
+          productId:
+            type: string
+            example: SNOPY0000010
+          productName:
+            type: string
+            example: Logitech M330 Murah Meriah
+          storeName:
+            type: string
+            example: Razor Store
+          location:
+            type: string
+            example: Jatiwaringin
+          productDescription:
+            type: string
+            example: >-
+              Logitech selalu menghadirkan mouse andalan untuk menunjang
+              aktivitas komputasi Anda sehari-hari seperti Mouse Kabel Logitech
+              M105. Mouse kabel dari Logitech ini hadir dengan kombinasi
+              warna-warni yang menarik di pandang mata. Dirancang dalam bentuk
+              ambidekstrus yang memberikan kenyamanan pada penggunanya, baik
+              menggunakan tangan kanan maupun tangan kiri Anda. Bentuknya pun
+              berdesain cerdas dan full-size agar tetap terasa nyaman meski
+              digunakan dalam waktu berjam-jam. Selain itu, bentuknya yang
+              ringan dan praktis juga menjadikannya mudah dibawa kemana pun Anda
+              inginkan
+          categoryProduct:
+            type: string
+            example: CAT0001
+          brandProduct:
+            type: string
+            example: BRN0001
+          productPrice:
+            type: integer
+            example: 180000
+          productImages:
+            type: string
+            example: >-
+              https://s3-ap-southeast-1.amazonaws.com/snopy/product/ed64ae48-15d2-4bf4-8872-e17e24309baf.png
+      code:
+        type: integer
+        example: 200
+      massage:
+        type: string
+        example: Category has been processed
+  product:
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        type: string
+        example:
+          - id: 5a83e01bc00ec80efe0dd5bf
+            productId: SNOPY0000010
+            productName: Logitech M330 Murah Meriah
+            storeName: Razor Store
+            location: Jatiwaringin
+            productDescription: >-
+              Logitech selalu menghadirkan mouse andalan untuk menunjang
+              aktivitas komputasi Anda sehari-hari seperti Mouse Kabel Logitech
+              M105. Mouse kabel dari Logitech ini hadir dengan kombinasi
+              warna-warni yang menarik di pandang mata. Dirancang dalam bentuk
+              ambidekstrus yang memberikan kenyamanan pada penggunanya, baik
+              menggunakan tangan kanan maupun tangan kiri Anda. Bentuknya pun
+              berdesain cerdas dan full-size agar tetap terasa nyaman meski
+              digunakan dalam waktu berjam-jam. Selain itu, bentuknya yang
+              ringan dan praktis juga menjadikannya mudah dibawa kemana pun Anda
+              inginkan.
+            categoryProduct: CAT0001
+            brandProduct: BRN0001
+            productPrice: '180000'
+            productImages: >-
+              https://s3-ap-southeast-1.amazonaws.com/snopy/product/ed64ae48-15d2-4bf4-8872-e17e24309baf.png
+      meta:
+        properties:
+          page:
+            type: integer
+            example: 1
+          count:
+            type: integer
+            example: 5
+          totalPage:
+            type: integer
+            example: 1
+          totalData:
+            type: integer
+            example: 5
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: Product has been processed
+  brand:
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        type: string
+        example: []
+      meta:
+        properties:
+          page:
+            type: integer
+            example: 1
+          count:
+            type: integer
+            example: 0
+          totalPage:
+            type: integer
+            example: 0
+          totalData:
+            type: integer
+            example: 0
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: Product has been processed

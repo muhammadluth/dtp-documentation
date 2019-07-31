@@ -1,0 +1,397 @@
+swagger: '2.0'
+info:
+  description: SNOPY
+  version: 1.0.0
+  title: SNOPY
+host: snopy-user-dds-development.apps.playcourt.id
+basePath: /api
+schemes:
+  - https
+  - http
+paths:
+  /register-user:
+    post:
+      summary: register
+      description: register user
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: username
+          type: string
+          required: true
+        - in: formData
+          name: password
+          type: string
+          required: true
+        - in: formData
+          name: address
+          type: string
+          required: true
+        - in: formData
+          name: address2
+          type: string
+        - in: formData
+          name: city
+          type: string
+        - in: formData
+          name: country
+          type: string
+        - in: formData
+          name: email
+          type: string
+        - in: formData
+          name: fullname
+          type: string
+        - in: formData
+          name: phone
+          type: integer
+        - in: formData
+          name: postalCode
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/registeruser'
+  /login:
+    post:
+      summary: login
+      description: login user
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: username
+          type: string
+          required: true
+        - in: formData
+          name: password
+          type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/login'
+  '/logout/{userId}':
+    get:
+      summary: userId
+      description: Get logout
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+        - in: path
+          name: userId
+          description: userId
+          type: string
+          format: uuid
+          required: true
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/logout'
+  /profile/{userId}:
+    get:
+      summary: /profile/{userId}
+      description:
+        get prfile by userId
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: userId
+        in: path
+        description: id of user
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/profiles'
+    put:
+      summary: /profile/{userId} 
+      description: update profile by user Id
+      consumes: 
+        - application/json
+      produces: 
+        - application/json
+      parameters: 
+      - name: userId
+        in: path
+        description: id of user
+        required: true
+        type: string
+      - name: profile
+        in: body
+        description: ""
+        required: true
+        schema:
+          $ref: '#/definitions/profile'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/update'
+definitions:
+  login:
+    type: object
+    properties:
+      success:
+        type: string
+        example: true
+      data:
+        $ref: '#/definitions/isilogin'
+      message:
+        type: string
+        example: Login User
+      code:
+        type: string
+        example: 200
+  isilogin:
+    type: object
+    properties:
+      userId:
+        type: string
+        format: uuid
+        example: 171327ca-a1b1-49c0-bc9d-48be35a42e99
+  logout:
+    type: object
+    properties:
+      success:
+        type: string
+        example: true
+      data:
+        $ref: '#/definitions/datalogout'
+      message:
+        type: string
+        example: Get Profile
+      code:
+        type: integer
+        example: 200
+  datalogout:
+    type: object
+    properties:
+      country:
+        type: string
+        example: Belanda
+      fullName:
+        type: string
+        example: Alif Septian Nurdianto
+      address:
+        type: string
+        example: Jakarta
+      address2:
+        type: string
+        example: Bandung
+      city:
+        type: string
+        example: Jakarta
+      postalCode:
+        type: integer
+        example: 57528
+      phone:
+        type: integer
+        example: 0811962199221
+      email:
+        type: string
+        example: alifsnurdianto@gmail.com
+      profilePicture:
+        type: string
+        example: >-
+          https://s3-ap-southeast-1.amazonaws.com/snopy/user/fb97c7e6-968c-4bba-ad3a-345c24618151.png
+  registeruser:
+    type: object
+    properties:
+      success:
+        type: string
+        example: true
+      data:
+        $ref: '#/definitions/userisi'
+      message:
+        type: string
+        example: Register User
+      code:
+        type: integer
+        example: 200
+  userisi:
+    type: object
+    properties:
+      userId:
+        type: string
+        format: uuid
+        example: e65b5dd7-14e1-4807-a396-c54536c2f88b
+      username:
+        type: string
+        example: elf23
+      password:
+        type: string
+        example: U2FsdGVkX18r+GSw1Iqm/vCYTgYVVNHYnLj7gvTFXxc=
+      token:
+        type: string
+        format: uuid
+        example: ''
+      role:
+        type: string
+        example: user
+      country:
+        type: string
+        example: Indonesia
+      fullName:
+        type: string
+        example: Alif Septian Nurdianto
+      address:
+        type: string
+        example: jakarta
+      address2:
+        type: string
+        example: ''
+      city:
+        type: string
+        example: Jakarta
+      postalCode:
+        type: integer
+        example: 57528
+      phone:
+        type: integer
+        example: 08119621992
+      email:
+        type: string
+        example: alifsnitt@gmail.com
+      profilePicture:
+        type: string
+        example: >-
+          https://s3-ap-southeast-1.amazonaws.com/snopy/user/cb0f51f4-3069-4360-b7aa-690541d92e88.png
+      createdDate:
+        type: integer
+        example: '2018/02/23 08:33:49'
+      modifiedDate:
+        type: integer
+        example: '2018/02/23 08:33:49'
+      _id:
+        type: string
+        format: uuid
+        example: 5a8fd1ed637aca0011fa24ed
+  profiles:
+    type: object
+    properties:
+      success:
+        type: string
+        example: true
+      data:
+        properties:
+          country:
+            type: string
+            example: Belanda
+          fullName:
+            type: string
+            example: Alif Septian Nurdianto
+          address:
+            type: string
+            example: Jakarta
+          address2:
+            type: string
+            example: Bandung
+          city:
+            type: string
+            example: jakarta
+          postalCode:
+            type: string
+            example: 57528
+          phone:
+            type: string
+            example: 0811962199221
+          email:
+            type: string
+            example: alifsnurdianto@gmail.com
+          profilePicture: 
+            type: string
+            example: https://s3-ap-southeast-1.amazonaws.com/snopy/user/fb97c7e6-968c-4bba-ad3a-345c24618151.png
+      message:
+        type: string
+        example: Get Profile
+      code:
+        type: integer
+        format: int32
+        example: 200
+  profile:
+    type: object
+    properties:
+      country:
+        type: string
+        example: Belanda
+      fullName: 
+        type: string
+        example: Alif Septian Nurdianto
+      address:
+        type: string
+        example: Jakarta
+      address2:
+        type: string
+        example: Bandung
+      city:
+        type: string
+        example: Jakarta
+      postalCode:
+        type: string
+        example: 57528
+      phone:
+        type: string
+        example: 0811962199221
+      email:
+        type: string
+        example: alifsnurdianto@gmail.com
+  update:
+    type: object
+    properties:
+      success:
+        type: string
+        example: true
+      data:
+        properties:
+          country:
+            type: string
+            example: Belanda
+          fullName:
+            type: string
+            example: Alif Septian Nurdianto
+          address:
+            type: string
+            example: Jakarta
+          address2:
+            type: string
+            example: Bandung
+          city:
+            type: string
+            example: jakarta
+          postalCode:
+            type: string
+            example: 57528
+          phone:
+            type: string
+            example: 0811962199221
+          email:
+            type: string
+            example: alifsnurdianto@gmail.com
+          userId: 
+            type: string
+            format: uuid
+            example: 171327ca-a1b1-49c0-bc9d-48be35a42e99
+      message:
+        type: string
+        example: Update Profile
+      code:
+        type: integer
+        format: int32
+        example: 200

@@ -1,0 +1,582 @@
+swagger: '2.0'
+info:
+  description: BUMN
+  version: 1.0.0
+  title: BUMN
+host: ec2-13-229-74-222.ap-southeast-1.compute.amazonaws.com:9000
+basePath: /api
+schemes:
+ - https
+ - http
+paths:
+  /list-bumn:
+    get:
+      summary: /list-bumn?appId={nama project}
+      description:
+        list BUMN
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/listbumn'
+  /category-bumn:
+    get:
+      summary: /category-bumn?appId={nama project}
+      description: |
+        category BUMN
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/categorybumn'
+  /profile:
+    get:
+      summary: /profile?page={nomor halaman}&count={jumlah data}&bumnId={bumnId}&appId={nama project}
+      description: profile
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: page
+        in: query
+        description: number of page
+        required: true
+        type: string
+      - name: count
+        in: query
+        description: ""
+        required: true
+        type: string
+      - name: bumnId
+        in: query
+        description: Id of BUMN
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/profiles'
+    post:
+      summary: /profile?appId={nama project}
+      description: post profile
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/postuser'
+      parameters:
+      - name: id
+        in: query
+        description: ""
+        required: true
+        type: string
+  /bumn/{bumnId}:
+    get:
+      summary: /bumn/{bumnId}?appId={nama project}
+      description: get bumn by id
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters: 
+      - name: bumnId
+        in: path
+        description: id of BUMN
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/bumnid'
+  /list-bumn/{categoryId}:
+    get:
+      summary: /list-bumn/{categoryId}?appId={nama project}
+      description: get list bumn by category id
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: categoryId
+        in: path
+        description: id of category
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema: 
+            $ref: '#/definitions/list-bumn'
+  /profile/{userId}:
+    get:
+      summary: /profile/{userId}?appId={nama project}
+      description: get profile by user id
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: userId
+        in: path
+        description: id of user
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/profile'
+  /user:
+    get:
+      summary: /user?bumnId={bumnId}&nik={nik}&appId={nama project}
+      description: get user by bumnId and nik
+      consumes: 
+        - application/json
+      produces: 
+        - appliaction/json
+      parameters: 
+      - name: bumnId
+        in: query
+        description: id of bumn
+        required: true
+        type: string
+      - name: nik
+        in: query
+        description: nomor induk karyawan
+        required: true
+        type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/user'
+  /summary-detail:
+    get:
+      summary: /summary-detail?appId={nama project}
+      description: summary detail
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/summarydetail'
+  /summary-bumn:
+    get:
+      summary: /summary-bumn?appId={nama project}
+      description: summary bumn
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/summarybumn'
+definitions:
+  listbumn:
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        type: array
+        properties:
+          _id:
+            type: string
+            format: uuid
+            example: 5a372002b47a451a843f286a
+          bumnId:
+            type: integer
+            example: 0
+          bumnName:
+            type: string
+            example: Kementerian BUMN
+          categoryId:
+            type: integer
+            example: 14
+          imageUrl:
+            type: string
+            example: 'https://s3-ap-southeast-1.amazonaws.com/sobatbumn/logo/000.png'
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: Get List BUMN
+  categorybumn:
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        type: array
+        properties:
+          _id:
+            type: string
+            format: uuid
+            example: 5a3722636f283c1c5305fe4b
+          categoryName:
+            type: string
+            example: Telekomunikasi
+          categoryId:
+            type: integer
+            example: 1
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: Get List BUMN
+  summarydetail:
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/data2'
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: Get User Summary
+  data2:
+    type: object
+    properties:
+      bumnId:
+        type: integer
+        example: 008
+      count:
+        type: integer
+        example: 38413
+      bumnName:
+        type: string
+        example: PT Bank Mandiri (Persero) Tbk.
+      images:
+        type: string
+        example: 'https://s3-ap-southeast-1.amazonaws.com/sobatbumn/logo/008.png'
+  profiles:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        $ref: '#/definitions/data3'
+      meta:
+        $ref: '#/definitions/meta'
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: Get Profile
+  data3:
+    type: object
+    properties:
+      err:
+        type: string
+        example: 'null'
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/data5'
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: 'null'
+  meta:
+    type: object
+    properties:
+      page:
+        type: integer
+        example: 1
+      limit:
+        type: integer
+        example: 10
+      totalPage:
+        type: integer
+        example: 1479
+      totalRecord:
+        type: integer
+        example: 14782
+  data5:
+    type: object
+    properties:
+      _id:
+        type: string
+        format: uuid
+        example: 5a39ba655fdb1b077ff9af71
+      nik:
+        type: integer
+        format: int64
+        example: 592115
+      profilePicture:
+        type: string
+        example: >-
+          https://s3-ap-southeast-1.amazonaws.com/sobatbumn/user/default_profile_picture.jpeg
+      name:
+        type: string
+        example: Ketut Darsumantra
+      userId:
+        type: string
+        format: uuid
+        example: 02048eb4-1639-4f8c-8891-9bca33700316
+      mobilePhone:
+        type: integer
+        example: 81322940010
+      bumnName:
+        type: string
+        example: PT Telekomunikasi Indonesia (Persero) Tbk
+      loginStatus:
+        type: string
+        example: 'false'
+      email:
+        type: string
+        example: 592115@telkom.co.id
+      isVerified:
+        type: string
+        example: 'true'
+      bumnId:
+        type: integer
+        format: int32
+        example: 111
+  bumnid:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        $ref: '#/definitions/databumn'
+      code:
+        type: integer
+        format: int32
+        example: 200
+      mesaage: 
+        type: string
+        example: Get BUMN by ID
+  databumn:
+    type: object
+    properties:
+      _id:
+        type: string
+        format: uuid
+        example: 5a372002b47a451a843f2867
+      bumnid:
+        type: integer
+        format: int32
+        example: 4
+      bumnName:
+        type: string
+        example: PT Aneka Tambang (Persero) Tbk
+      categoryId:
+        type: integer
+        format: int32
+        example: 11
+      imageUrl:
+        type: string
+        example: 'https://s3-ap-southeast-1.amazonaws.com/sobatbumn/logo/004.png'
+  list-bumn:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/databumn'
+      code:
+        type: integer
+        format: int32
+        example: 200
+      message:
+        type: string
+        example: Get list BUMN By Cat ID
+  profile:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        $ref: '#/definitions/data'
+      code:
+        type: integer
+        format: int32
+        example: 200
+      message:
+        type: string
+        example: Get Profile
+  data:
+    type: object
+    properties:
+      profilePicture:
+        type: string
+        example: https://s3-ap-southeast-1.amazonaws.com/sobatbumn/user/default_profile_picture.jpeg
+      name:
+        type: string
+        example: Suprajarto
+      mobilePhone:
+        type: string
+        example: 08158565656
+      email:
+        type: string
+        example: ""
+      nik:
+        type: integer
+        format: int32
+        example: 01
+      bumnName:
+        type: string
+        example: BANK RAKYAT INDONESIA (PERSERO)
+      bumnId:
+        type: integer
+        format: int32
+        example: 002
+  user:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        $ref: '#/definitions/data1'
+      code:
+        type: integer
+        format: int32
+        example: 200
+      message:
+        type: string
+        example: Get user summary
+  data1:
+    type: object
+    properties:
+      userId:
+        type: string
+        format: uuid
+        example: 53bf37a9-ec39-4fcf-b5dc-db9d8108fede
+      profilePicture:
+        type: string
+        example: https://s3-ap-southeast-1.amazonaws.com/sobatbumn/user/1560232d-55cd-4101-ad65-824846a51d70.png
+      name:
+        type: string
+        example: ARI KURNIAWAN, ST
+      mobilePhone:
+        type: string
+        example: 081219527576
+      email:
+        type: string
+        example: 740059@telkom.co.id
+      nik:
+        type: string
+        example: 740059
+      loginStatus:
+        type: boolean
+        example: false
+      bumnId:
+        type: integer
+        format: int32
+        example: 111
+      bumnName:
+        type: string
+        example: PT Telekomunikasi Indonesia (Persero) Tbk
+  summarybumn:
+    type: object
+    properties:
+      status:
+        type: string
+        example: success
+      data:
+        properties:
+          countBumn:
+            type: integer
+            format: int32
+            example: 121
+      code:
+        type: integer
+        format: int32
+        example: 200
+      message:
+        type: string
+        example: Get user summary
+  postuser:
+    type: object
+    properties:
+      status:
+        type: string
+        example: successs
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/data4'
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: Get profile
+  data4:
+    type: object
+    properties:
+      _id:
+        type: string
+        format: uuid
+        example: 5a39b76c5fdb1b07784b71b0
+      nik:
+        type: string
+        example: 0379194772
+      profilePicture:
+        type: string
+        example: https://s3-ap-southeast-1.amazonaws.com/sobatbumn/user/default_profile_picture.jpeg
+      name: 
+        type: string
+        example: LACHRIMA PARAMITA RICHY
+      userId:
+        type: string
+        format: uuid
+        example: 83724618-3c71-4581-a3b8-aa9b7505c7a4
+      mobilePhone:
+        type: string
+        example: 082136398500
+      bumnName:
+        type: string
+        example: BANK MANDIRI
+      email:
+        type: string
+        example: ""
+      bumnId:
+        type: integer
+        example: 008

@@ -1,0 +1,589 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Helio"
+host: "virtserver.swaggerhub.com"
+basePath: "/Dev87/Helio/1.0.0"
+schemes:
+- "https"
+- "http"
+produces:
+- "application/json"
+paths:
+  /oauth/token:
+    post:
+      description: ""
+      parameters:
+      - in: "body"
+        name: "token"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/token"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/token_output"
+  /api/v1/login:
+    post:
+      description: ""
+      parameters:
+      - in: "body"
+        name: "login"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/login"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/login_output"
+  /api/v1/client-credential:
+    post:
+      description: ""
+      parameters:
+      - in: "body"
+        name: "client-credential"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/client"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/client_output"
+  /api/v1/client-credential/id:
+    post:
+      description: ""
+      parameters:
+      - name: "_id"
+        in: "query"
+        description: ""
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/client_output"
+    delete:
+      description: ""
+      parameters:
+      - name: "_id"
+        in: "query"
+        description: ""
+        required: true
+        type: "string"
+        format: "uuid"
+      responses:
+        200:
+          description: "OK"
+  /authorization:
+    get:
+      description: ""
+      parameters: []
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/authorization"
+definitions:
+  token:
+    type: "object"
+    properties:
+      grant_type:
+        type: "string"
+      code:
+        type: "string"
+        description: "diambil dari get user"
+      redirect_url:
+        type: "string"
+        format: "url"
+  token_output:
+    type: "object"
+    properties:
+      access_token:
+        type: "string"
+      expires_in:
+        type: "integer"
+      refresh_token:
+        type: "string"
+      token_type:
+        type: "string"
+    example:
+      access_token: "access_token"
+      refresh_token: "refresh_token"
+      token_type: "token_type"
+      expires_in: 0
+  login:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+        format: "password"
+  login_output:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+      data:
+        $ref: "#/definitions/login_output_data"
+      message:
+        type: "string"
+    example:
+      data:
+        data:
+          firstname: "firstname"
+          gender: "gender"
+          isactive: true
+          lastloginip: "lastloginip"
+          phonenumber: 6
+          logincount: 1
+          lastlogintime: "2000-01-23"
+          setting:
+            themename: "themename"
+            maxpagesize: 5
+            usesignature: true
+            signature: "signature"
+            displaydensity: "displaydensity"
+            maxdiskusage: 2
+            language: "language"
+            filters: ""
+            subscription:
+              endpoint: "endpoint"
+              keys:
+                auth: "auth"
+                p256dh: "p256dh"
+            fcmkey:
+              token: "token"
+            themefilename: "themefilename"
+          issueruser: true
+          notification:
+            fcm:
+              device_version: "device_version"
+              device_serial: "device_serial"
+              platform: "platform"
+              device_uuid: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+          password: "password"
+          issuperadmin: true
+          tablename: "tablename"
+          email: "email"
+          dateofbirth: "2000-01-23"
+          website: "http://example.com/aeiou"
+          joindate: "2000-01-23"
+          diskusage: 5
+          ismailgroup: true
+          isforwarding: true
+          avatar: "http://example.com/aeiou"
+          packet: "packet"
+          forwarded: ""
+          lastname: "lastname"
+          token: "token"
+          emailaliases: "emailaliases"
+          _id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+          contacts:
+            name: "name"
+            label: "label"
+            value: "value"
+            email: "email"
+          username: "username"
+        message: "message"
+        status: true
+      message: "message"
+      status: 0
+  client:
+    type: "object"
+    properties:
+      client_name:
+        type: "string"
+      client_website:
+        type: "string"
+      access_token_validity:
+        type: "string"
+      count_access_api:
+        type: "string"
+      authorized_grant_types:
+        type: "string"
+  client_output:
+    type: "object"
+    properties:
+      status:
+        type: "boolean"
+      data:
+        $ref: "#/definitions/client_output_data"
+      message:
+        type: "string"
+    example:
+      data:
+        access_token_validity: "access_token_validity"
+        _v: "_v"
+        count_access_api: "count_access_api"
+        client_website: "client_website"
+        authorized_grant_types: "authorized_grant_types"
+        client_secret: "client_secret"
+        _id: "_id"
+        client_name: "client_name"
+        client_id: "client_id"
+      message: "message"
+      status: true
+  authorization:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+      data:
+        $ref: "#/definitions/authorization_data"
+      message:
+        type: "string"
+    example:
+      data:
+        code: "code"
+        client_secret: "client_secret"
+      message: "message"
+      status: "status"
+  login_output_data_data_setting_subscription_keys:
+    properties:
+      p256dh:
+        type: "string"
+      auth:
+        type: "string"
+    example:
+      auth: "auth"
+      p256dh: "p256dh"
+  login_output_data_data_setting_subscription:
+    properties:
+      endpoint:
+        type: "string"
+      keys:
+        $ref: "#/definitions/login_output_data_data_setting_subscription_keys"
+    example:
+      endpoint: "endpoint"
+      keys:
+        auth: "auth"
+        p256dh: "p256dh"
+  login_output_data_data_setting_fcmkey:
+    properties:
+      token:
+        type: "string"
+    example:
+      token: "token"
+  login_output_data_data_setting:
+    properties:
+      language:
+        type: "string"
+      maxpagesize:
+        type: "integer"
+      usesignature:
+        type: "boolean"
+      signature:
+        type: "string"
+      themename:
+        type: "string"
+      themefilename:
+        type: "string"
+      displaydensity:
+        type: "string"
+      maxdiskusage:
+        type: "integer"
+        format: "int32"
+      filters:
+        type: "array"
+      subscription:
+        $ref: "#/definitions/login_output_data_data_setting_subscription"
+      fcmkey:
+        $ref: "#/definitions/login_output_data_data_setting_fcmkey"
+    example:
+      themename: "themename"
+      maxpagesize: 5
+      usesignature: true
+      signature: "signature"
+      displaydensity: "displaydensity"
+      maxdiskusage: 2
+      language: "language"
+      filters: ""
+      subscription:
+        endpoint: "endpoint"
+        keys:
+          auth: "auth"
+          p256dh: "p256dh"
+      fcmkey:
+        token: "token"
+      themefilename: "themefilename"
+  login_output_data_data_contacts:
+    properties:
+      value:
+        type: "string"
+      email:
+        type: "string"
+      label:
+        type: "string"
+      name:
+        type: "string"
+    example:
+      name: "name"
+      label: "label"
+      value: "value"
+      email: "email"
+  login_output_data_data_notification_fcm:
+    properties:
+      platform:
+        type: "string"
+      device_version:
+        type: "string"
+      device_serial:
+        type: "string"
+      device_uuid:
+        type: "string"
+        format: "uuid"
+    example:
+      device_version: "device_version"
+      device_serial: "device_serial"
+      platform: "platform"
+      device_uuid: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+  login_output_data_data_notification:
+    properties:
+      fcm:
+        $ref: "#/definitions/login_output_data_data_notification_fcm"
+    example:
+      fcm:
+        device_version: "device_version"
+        device_serial: "device_serial"
+        platform: "platform"
+        device_uuid: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+  login_output_data_data:
+    properties:
+      _id:
+        type: "string"
+        format: "uuid"
+      firstname:
+        type: "string"
+      lastname:
+        type: "string"
+      email:
+        type: "string"
+      username:
+        type: "string"
+      password:
+        type: "string"
+        format: "password"
+      avatar:
+        type: "string"
+        format: "url"
+      phonenumber:
+        type: "integer"
+        format: "int64"
+      website:
+        type: "string"
+        format: "url"
+      packet:
+        type: "string"
+      dateofbirth:
+        type: "string"
+        format: "date"
+      gender:
+        type: "string"
+      joindate:
+        type: "string"
+        format: "date"
+      issueruser:
+        type: "boolean"
+      issuperadmin:
+        type: "boolean"
+      isactive:
+        type: "boolean"
+      ismailgroup:
+        type: "boolean"
+      isforwarding:
+        type: "boolean"
+      lastlogintime:
+        type: "string"
+        format: "date"
+      lastloginip:
+        type: "string"
+      logincount:
+        type: "integer"
+        format: "int32"
+      diskusage:
+        type: "integer"
+        format: "int32"
+      tablename:
+        type: "string"
+      token:
+        type: "string"
+      setting:
+        $ref: "#/definitions/login_output_data_data_setting"
+      contacts:
+        $ref: "#/definitions/login_output_data_data_contacts"
+      forwarded:
+        type: "array"
+      emailaliases:
+        type: "string"
+      notification:
+        $ref: "#/definitions/login_output_data_data_notification"
+    example:
+      firstname: "firstname"
+      gender: "gender"
+      isactive: true
+      lastloginip: "lastloginip"
+      phonenumber: 6
+      logincount: 1
+      lastlogintime: "2000-01-23"
+      setting:
+        themename: "themename"
+        maxpagesize: 5
+        usesignature: true
+        signature: "signature"
+        displaydensity: "displaydensity"
+        maxdiskusage: 2
+        language: "language"
+        filters: ""
+        subscription:
+          endpoint: "endpoint"
+          keys:
+            auth: "auth"
+            p256dh: "p256dh"
+        fcmkey:
+          token: "token"
+        themefilename: "themefilename"
+      issueruser: true
+      notification:
+        fcm:
+          device_version: "device_version"
+          device_serial: "device_serial"
+          platform: "platform"
+          device_uuid: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+      password: "password"
+      issuperadmin: true
+      tablename: "tablename"
+      email: "email"
+      dateofbirth: "2000-01-23"
+      website: "http://example.com/aeiou"
+      joindate: "2000-01-23"
+      diskusage: 5
+      ismailgroup: true
+      isforwarding: true
+      avatar: "http://example.com/aeiou"
+      packet: "packet"
+      forwarded: ""
+      lastname: "lastname"
+      token: "token"
+      emailaliases: "emailaliases"
+      _id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+      contacts:
+        name: "name"
+        label: "label"
+        value: "value"
+        email: "email"
+      username: "username"
+  login_output_data:
+    properties:
+      status:
+        type: "boolean"
+      data:
+        $ref: "#/definitions/login_output_data_data"
+      message:
+        type: "string"
+    example:
+      data:
+        firstname: "firstname"
+        gender: "gender"
+        isactive: true
+        lastloginip: "lastloginip"
+        phonenumber: 6
+        logincount: 1
+        lastlogintime: "2000-01-23"
+        setting:
+          themename: "themename"
+          maxpagesize: 5
+          usesignature: true
+          signature: "signature"
+          displaydensity: "displaydensity"
+          maxdiskusage: 2
+          language: "language"
+          filters: ""
+          subscription:
+            endpoint: "endpoint"
+            keys:
+              auth: "auth"
+              p256dh: "p256dh"
+          fcmkey:
+            token: "token"
+          themefilename: "themefilename"
+        issueruser: true
+        notification:
+          fcm:
+            device_version: "device_version"
+            device_serial: "device_serial"
+            platform: "platform"
+            device_uuid: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+        password: "password"
+        issuperadmin: true
+        tablename: "tablename"
+        email: "email"
+        dateofbirth: "2000-01-23"
+        website: "http://example.com/aeiou"
+        joindate: "2000-01-23"
+        diskusage: 5
+        ismailgroup: true
+        isforwarding: true
+        avatar: "http://example.com/aeiou"
+        packet: "packet"
+        forwarded: ""
+        lastname: "lastname"
+        token: "token"
+        emailaliases: "emailaliases"
+        _id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+        contacts:
+          name: "name"
+          label: "label"
+          value: "value"
+          email: "email"
+        username: "username"
+      message: "message"
+      status: true
+  client_output_data:
+    properties:
+      _v:
+        type: "string"
+      client_id:
+        type: "string"
+      client_secret:
+        type: "string"
+      client_name:
+        type: "string"
+      client_website:
+        type: "string"
+      access_token_validity:
+        type: "string"
+      count_access_api:
+        type: "string"
+      _id:
+        type: "string"
+      authorized_grant_types:
+        type: "string"
+    example:
+      access_token_validity: "access_token_validity"
+      _v: "_v"
+      count_access_api: "count_access_api"
+      client_website: "client_website"
+      authorized_grant_types: "authorized_grant_types"
+      client_secret: "client_secret"
+      _id: "_id"
+      client_name: "client_name"
+      client_id: "client_id"
+  authorization_data:
+    properties:
+      code:
+        type: "string"
+      client_secret:
+        type: "string"
+    example:
+      code: "code"
+      client_secret: "client_secret"

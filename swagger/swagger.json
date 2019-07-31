@@ -1,0 +1,274 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "SNOPY",
+    "version": "1.0.0",
+    "title": "SNOPY"
+  },
+  "host": "ec2-user@ec2-54-255-194-228.ap-southeast-1.compute.amazonaws.com:9000",
+  "basePath": "/api",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/findCategory/brand": {
+      "get": {
+        "summary": "findCategory/brand?page={jumlah halaman}&size={ukuran data}&sort={sort data by}&search=9f65e934-0e58-11e8-ba89-0ed5f89f718c",
+        "description": "api untuk mencari kategori",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "jumlah halaman",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "ukuran data",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "sort data by",
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string",
+            "format": "uuid",
+            "description": "user id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/category"
+            }
+          }
+        }
+      }
+    },
+    "/brand": {
+      "get": {
+        "summary": "/brand?page={jumlah halaman}&size={ukuran data}&sort={sort data by}&search={brandName}",
+        "description": "api get brand",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/brand"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "jumlah halaman",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "ukuran data",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "sort data by",
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string",
+            "description": "brandName"
+          }
+        ]
+      }
+    },
+    "/brand/{brandId}": {
+      "get": {
+        "summary": "/brand/{brandId}",
+        "description": "api get brandId",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/brandid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "path",
+            "format": "uuid",
+            "description": "jumlah halaman",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "category": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "string",
+          "example": []
+        },
+        "meta": {
+          "properties": {
+            "page": {
+              "type": "integer",
+              "example": 1
+            },
+            "count": {
+              "type": "integer",
+              "example": 0
+            },
+            "totalPage": {
+              "type": "integer",
+              "example": 0
+            },
+            "totalData": {
+              "type": "integer",
+              "example": 0
+            }
+          }
+        },
+        "code": {
+          "type": "integer",
+          "example": 200
+        },
+        "message": {
+          "type": "string",
+          "example": "Brand has been proccessed"
+        }
+      }
+    },
+    "brand": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "string",
+          "example": [
+            {
+              "id": "5a731369e3a34ab6b60739dc",
+              "brandId": "BRN0001",
+              "brandName": "Logitech",
+              "brandImages": "https://s3-ap-southeast-1.amazonaws.com/snopy/product/gambar+1.jpg",
+              "categoryId": "CAT0001"
+            }
+          ]
+        },
+        "meta": {
+          "properties": {
+            "page": {
+              "type": "integer",
+              "example": 1
+            },
+            "count": {
+              "type": "integer",
+              "example": 1
+            },
+            "totalPage": {
+              "type": "integer",
+              "example": 1
+            },
+            "totalData": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        },
+        "code": {
+          "type": "integer",
+          "example": 200
+        },
+        "message": {
+          "type": "string",
+          "example": "Brand has been proccessed"
+        }
+      }
+    },
+    "brandid": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "5a731369e3a34ab6b60739dc"
+            },
+            "brandId": {
+              "type": "string",
+              "example": "BRN0001"
+            },
+            "brandNama": {
+              "type": "string",
+              "example": "Logitech"
+            },
+            "brandImages": {
+              "type": "string",
+              "example": "https://s3-ap-southeast-1.amazonaws.com/snopy/product/gambar+1.jpg"
+            }
+          }
+        },
+        "code": {
+          "type": "integer",
+          "example": 200
+        },
+        "message": {
+          "type": "string",
+          "example": "Brand has been proccessed"
+        }
+      }
+    }
+  }
+}
